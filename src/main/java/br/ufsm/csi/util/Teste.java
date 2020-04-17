@@ -1,9 +1,7 @@
 package br.ufsm.csi.util;
 
-import br.ufsm.csi.dao.ConectaDB;
-import br.ufsm.csi.dao.PacienteDao;
-import br.ufsm.csi.dao.TutorDao;
-import br.ufsm.csi.dao.VeterinarioDao;
+import br.ufsm.csi.dao.*;
+import br.ufsm.csi.model.Consultorio;
 import br.ufsm.csi.model.Paciente;
 import br.ufsm.csi.model.Tutor;
 import br.ufsm.csi.model.Veterinario;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 public class Teste {
 
     public static void main(String args[]){
-        testaAtualizaVet();
+        deletaConsultorio();
 
     }
 
@@ -119,5 +117,41 @@ public class Teste {
         Veterinario v = new VeterinarioDao().getVeterinarioByCrmv("512345");
         v.setValor_consulta(150.00);
         System.out.println(new VeterinarioDao().atualizaVet(v));
+    }
+
+    public static void testaGeConsultorio(){
+
+        for (Consultorio c: new ConsultorioDao().getConsultorios()) {
+            System.out.println("Razao Social: "+c.getRazao_social());
+        }
+
+    }
+
+    public static void testaGetConCnpj(){
+        Consultorio c = new ConsultorioDao().getConsultorioByCnpj("CNPJ5232524");
+
+        System.out.println("Razao social: "+c.getRazao_social());
+        System.out.println("CNPJ: "+c.getCnpj());
+
+    }
+
+    public static void testaCadastraConsu(){
+        Consultorio c = new Consultorio();
+        c.setRazao_social("Meh");
+        c.setCnpj("6666");
+
+        System.out.println(new ConsultorioDao().cadastrar(c));
+    }
+
+    public static void testaAtualizaCon(){
+        Consultorio c = new ConsultorioDao().getConsultorioByCnpj("6666");
+        c.setNumero("7777");
+        c.setTelefone("00000-0000");
+        System.out.println(new ConsultorioDao().atualizaConsultorio(c));
+    }
+
+    public static void deletaConsultorio(){
+
+        System.out.println(new ConsultorioDao().deletaConsultorio(new ConsultorioDao().getConsultorioByCnpj("6666")));
     }
 }
