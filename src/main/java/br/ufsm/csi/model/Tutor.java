@@ -13,7 +13,8 @@ public class Tutor {
     private String logradouro;
     private String numero;
 
-    public Tutor() {
+    public Tutor(String nome) {
+        this.nome = nome;
     }
 
     public int getId() {

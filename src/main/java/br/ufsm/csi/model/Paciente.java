@@ -9,7 +9,8 @@ public class Paciente {
     private String sexo;
     private Tutor tutor;
 
-    public Paciente() {
+    public Paciente(String nome) {
+        this.nome = nome;
     }
 
     public String getNome() {
