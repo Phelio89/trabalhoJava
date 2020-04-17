@@ -138,6 +138,38 @@ public class VeterinarioDao {
         }
     }
 
+    public Veterinario getVeterinarioById(int id){
+        Veterinario v = new Veterinario();
+
+        try(Connection connection = new ConectaDB().getConexao()){
+
+            this.sql = "SELECT * FROM veterinario WHERE id = ?";
+            this.preparedStatement = connection.prepareStatement(sql);
+            this.preparedStatement.setInt(1, id);
+
+            this.rs = this.preparedStatement.executeQuery();
+
+            while (this.rs.next()){
+                v.setNome(this.rs.getString("nome"));
+                v.setCelular(this.rs.getString("celular"));
+                v.setCrmv(this.rs.getString("crmv"));
+                v.setEmail(this.rs.getString("email"));
+                v.setConsultorio_id(this.rs.getInt("consultorio_id"));
+                v.setId(this.rs.getInt("id"));
+                v.setSenha(this.rs.getString("senha"));
+                v.setValor_consulta(this.rs.getDouble("valor_consulta"));
+            }
+
+
+            return v;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
 
 
 }

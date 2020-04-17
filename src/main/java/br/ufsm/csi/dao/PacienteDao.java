@@ -76,25 +76,26 @@ public class PacienteDao {
         }
     }
 
-    public Paciente getPacientesByNameAndTutor(Paciente p, Tutor t){
+    public Paciente getPacientesByNameAndTutor(String p, String t){
 
         Paciente paciente = new Paciente(null);
 
         try(Connection connection = new ConectaDB().getConexao()){
 
 
-            this.sql = "SELECT * , p.nome pnome, t.nome tnome FROM paciente p, tutor t " +
+            this.sql = "SELECT * , p.nome pnome, p.id pid, t.nome tnome FROM paciente p, tutor t " +
                     "WHERE p.nome = ? AND p.tutor_id = t.id AND t.nome = ?";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
-            this.preparedStatement.setString(1, p.getNome());
-            this.preparedStatement.setString(2, t.getNome());
+            this.preparedStatement.setString(1, p);
+            this.preparedStatement.setString(2, t);
 
             this.rs = this.preparedStatement.executeQuery();
 
 
             while(this.rs.next()){
                 paciente.setNome(this.rs.getString("pnome"));
+                paciente.setId(this.rs.getInt("pid"));
 
                 Tutor tutor = new Tutor(this.rs.getString("tnome"));
 
@@ -162,6 +163,36 @@ public class PacienteDao {
         }
 
         return pacientes;
+    }
+
+    public Paciente getPacientesById(int id){
+        Paciente p = new Paciente(null);
+
+        try(Connection connection = new ConectaDB().getConexao()){
+
+
+            this.sql = "SELECT * FROM paciente WHERE id = ?";
+
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.preparedStatement.setInt(1, id);
+
+            this.rs = this.preparedStatement.executeQuery();
+
+
+            while(this.rs.next()){
+                p.setId(this.rs.getInt("id"));
+                p.setNome(this.rs.getString("nome"));
+                p.setEspecie(this.rs.getString("especie"));
+                p.setRaca(this.rs.getString("raca"));
+                p.setSexo(this.rs.getString("sexo"));
+            }
+
+            return p;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

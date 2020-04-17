@@ -7,8 +7,8 @@ public class Consulta {
     private int id;
     private Date data_hora_inicial;
     private Date data_hora_final;
-    private int medico_id;
-    private int paciten_id;
+    private Veterinario veterinario;
+    private Paciente paciente;
     private String descricao;
     private String comentario;
 
@@ -39,20 +39,20 @@ public class Consulta {
         this.data_hora_final = data_hora_final;
     }
 
-    public int getMedico_id() {
-        return medico_id;
+    public Veterinario getVeterinario() {
+        return veterinario;
     }
 
-    public void setMedico_id(int medico_id) {
-        this.medico_id = medico_id;
+    public void setVeterinario(Veterinario veterinario) {
+        this.veterinario = veterinario;
     }
 
-    public int getPaciten_id() {
-        return paciten_id;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setPaciten_id(int paciten_id) {
-        this.paciten_id = paciten_id;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public String getDescricao() {

@@ -1,18 +1,16 @@
 package br.ufsm.csi.util;
 
 import br.ufsm.csi.dao.*;
-import br.ufsm.csi.model.Consultorio;
-import br.ufsm.csi.model.Paciente;
-import br.ufsm.csi.model.Tutor;
-import br.ufsm.csi.model.Veterinario;
+import br.ufsm.csi.model.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
 public class Teste {
 
     public static void main(String args[]){
-        deletaConsultorio();
+        testeUpdateConsulta();
 
     }
 
@@ -29,8 +27,8 @@ public class Teste {
     }
 
     public static void testeGetByNameAndTutor(){
-        Paciente pnome = new Paciente("Link");
-        Tutor tnome = new Tutor("Érika");
+        String pnome = "Link";
+        String tnome = "Érika";
 
         Paciente p = new PacienteDao().getPacientesByNameAndTutor(pnome, tnome);
         System.out.println("Paciente: "+p.getNome());
@@ -153,5 +151,39 @@ public class Teste {
     public static void deletaConsultorio(){
 
         System.out.println(new ConsultorioDao().deletaConsultorio(new ConsultorioDao().getConsultorioByCnpj("6666")));
+    }
+
+    public static void marcarConsulta(){
+        java.util.Date data = new java.util.Date();
+        java.sql.Date datasql  = new java.sql.Date(data.getTime());
+
+        System.out.println(new ConsultaDao().marcaConsulta(
+                new PacienteDao().getPacientesByNameAndTutor("Link", "Érika"),
+                new VeterinarioDao().getVeterinarioByCrmv("512345"),
+                datasql
+        ));
+    }
+
+    public static void testeGetConsultas(){
+        for (Consulta c : new ConsultaDao().getConsultas()) {
+
+            System.out.println(c.getPaciente().getNome());
+            System.out.println(c.getVeterinario().getNome());
+
+        }
+    }
+
+    public static void testaDeletarConsulta(){
+        Consulta c = new Consulta();
+        c.setId(7);
+
+        System.out.println(new ConsultaDao().deletarConsulta(c));
+    }
+
+    public static void testeUpdateConsulta(){
+        Consulta c = new ConsultaDao().getConsultaById(6);
+        c.setDescricao("descrevi");
+
+        System.out.println(new ConsultaDao().editarConsulta(c));
     }
 }
