@@ -3,14 +3,18 @@ package br.ufsm.csi.util;
 import br.ufsm.csi.dao.ConectaDB;
 import br.ufsm.csi.dao.PacienteDao;
 import br.ufsm.csi.dao.TutorDao;
+import br.ufsm.csi.dao.VeterinarioDao;
 import br.ufsm.csi.model.Paciente;
 import br.ufsm.csi.model.Tutor;
+import br.ufsm.csi.model.Veterinario;
+
+import java.util.ArrayList;
 
 
 public class Teste {
 
     public static void main(String args[]){
-        testaAtualizaTutor();
+        testaAtualizaVet();
 
     }
 
@@ -81,5 +85,39 @@ public class Teste {
         Tutor t = new TutorDao().getTutorByCpf("96785643");
         t.setNome("Loreni");
         System.out.println(new TutorDao().atualizarTutor(t));
+    }
+
+    public static void testaGetVet(){
+        for (Veterinario v : new VeterinarioDao().getVeterinarios()) {
+            System.out.println("Veterinario: "+v.getNome());
+        }
+
+    }
+
+    public static void testaGetVetCrmv(){
+        Veterinario v = new VeterinarioDao().getVeterinarioByCrmv("321312");
+
+        System.out.println("Nome: "+v.getNome());
+        System.out.println("CRMV: "+v.getCrmv());
+    }
+
+    public static void testaCadastrarVet(){
+        Veterinario v = new Veterinario();
+        v.setNome("Pedro");
+        v.setCrmv("123123");
+        v.setConsultorio_id(2);
+
+        System.out.println(new VeterinarioDao().cadastrarVet(v));
+
+    }
+
+    public static void testaDeletaVet(){
+        System.out.println(new VeterinarioDao().deletaVet(new VeterinarioDao().getVeterinarioByCrmv("123123")));
+    }
+
+    public static void testaAtualizaVet(){
+        Veterinario v = new VeterinarioDao().getVeterinarioByCrmv("512345");
+        v.setValor_consulta(150.00);
+        System.out.println(new VeterinarioDao().atualizaVet(v));
     }
 }
