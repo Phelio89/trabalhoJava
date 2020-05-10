@@ -12,6 +12,7 @@ public class Tutor {
     private String estado;
     private String logradouro;
     private String numero;
+    private int consultorio_id;
 
     public Tutor(String nome) {
         this.nome = nome;
@@ -103,5 +104,13 @@ public class Tutor {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public int getConsultorio_id() {
+        return consultorio_id;
+    }
+
+    public void setConsultorio_id(int consultorio_id) {
+        this.consultorio_id = consultorio_id;
     }
 }

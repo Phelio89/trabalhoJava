@@ -26,6 +26,7 @@ public class TutorDao {
                 tutor.setId(this.rs.getInt("id"));
                 tutor.setNome(this.rs.getString("nome"));
                 tutor.setCelular(this.rs.getString("celular"));
+                tutor.setEmail(this.rs.getString("email"));
                 tutor.setCpf(this.rs.getString("cpf"));
                 tutor.setBairro(this.rs.getString("bairro"));
                 tutor.setCep(this.rs.getString("cep"));
@@ -33,6 +34,7 @@ public class TutorDao {
                 tutor.setEstado(this.rs.getString("estado"));
                 tutor.setNumero(this.rs.getString("numero"));
                 tutor.setLogradouro(this.rs.getString("logradouro"));
+                tutor.setConsultorio_id(this.rs.getInt("consultorio_id"));
 
                 tutores.add(tutor);
             }
@@ -45,6 +47,7 @@ public class TutorDao {
     }
 
     public Tutor getTutorByCpf(String cpf){
+
 
         Tutor t = new Tutor(null);
 
@@ -69,6 +72,44 @@ public class TutorDao {
             t.setEstado(this.rs.getString("estado"));
             t.setNumero(this.rs.getString("numero"));
             t.setLogradouro(this.rs.getString("logradouro"));
+            t.setConsultorio_id(this.rs.getInt("consultorio_id"));
+
+            return t;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public Tutor getTutorById(int id){
+
+
+        Tutor t = new Tutor(null);
+
+        try(Connection connection = new ConectaDB().getConexao()){
+
+            this.sql = "SELECT * FROM tutor WHERE id = ?";
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.preparedStatement.setInt(1, id);
+
+            this.rs = this.preparedStatement.executeQuery();
+
+            this.rs.next();
+
+            t.setId(this.rs.getInt("id"));
+            t.setEmail(this.rs.getString("email"));
+            t.setNome(this.rs.getString("nome"));
+            t.setCelular(this.rs.getString("celular"));
+            t.setCpf(this.rs.getString("cpf"));
+            t.setBairro(this.rs.getString("bairro"));
+            t.setCep(this.rs.getString("cep"));
+            t.setCidade(this.rs.getString("cidade"));
+            t.setEstado(this.rs.getString("estado"));
+            t.setNumero(this.rs.getString("numero"));
+            t.setLogradouro(this.rs.getString("logradouro"));
+            t.setConsultorio_id(this.rs.getInt("consultorio_id"));
 
             return t;
 
@@ -84,8 +125,8 @@ public class TutorDao {
         try(Connection connection = new ConectaDB().getConexao()){
 
             this.sql = "INSERT INTO tutor " +
-                    "(nome, celular, email, cpf, cep, bairro, cidade, estado, logradouro, numero) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "(nome, celular, email, cpf, cep, bairro, cidade, estado, logradouro, numero, consultorio_id) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
             this.preparedStatement.setString(1, t.getNome());
@@ -98,6 +139,7 @@ public class TutorDao {
             this.preparedStatement.setString(8, t.getEstado());
             this.preparedStatement.setString(9, t.getLogradouro());
             this.preparedStatement.setString(10, t.getNumero());
+            this.preparedStatement.setInt(11, t.getConsultorio_id());
 
             this.preparedStatement.execute();
 
@@ -109,12 +151,12 @@ public class TutorDao {
         }
     }
 
-    public String deletarTutor(Tutor t){
+    public String deletarTutor(int id){
 
         try(Connection connection = new ConectaDB().getConexao()) {
             this.sql = "DELETE FROM tutor WHERE id = ?";
             this.preparedStatement = connection.prepareStatement(this.sql);
-            this.preparedStatement.setInt(1, t.getId());
+            this.preparedStatement.setInt(1, id);
             this.preparedStatement.execute();
 
             return "Tutor deletado";

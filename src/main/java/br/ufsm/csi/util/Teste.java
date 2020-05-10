@@ -10,13 +10,13 @@ import java.util.ArrayList;
 public class Teste {
 
     public static void main(String args[]){
-        testeUpdateConsulta();
+        testGetTutores();
 
     }
 
     public static void testGetTutores(){
         for (Tutor u : new TutorDao().getTutores()) {
-            System.out.println();
+            System.out.println("nome: "+ u.getNome());
         }
     }
 
@@ -74,7 +74,7 @@ public class Teste {
     public static void testaDeletarTutor(){
         Tutor t = new Tutor("Alex");
         t.setId(5);
-        System.out.println(new TutorDao().deletarTutor(t));
+        System.out.println(new TutorDao().deletarTutor(5));
     }
 
     public static void testaAtualizaTutor(){

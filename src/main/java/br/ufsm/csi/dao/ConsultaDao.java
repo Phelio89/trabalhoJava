@@ -18,7 +18,7 @@ public class ConsultaDao {
 
         try(Connection connection = new ConectaDB().getConexao()){
 
-            this.sql =  "INSERT INTO consulta (data_hora_inicial, medico_id, paciente_id) " +
+            this.sql =  "INSERT INTO consulta (data_hora_inicial, veterinario_id, paciente_id) " +
                     "VALUES (?, ?, ?)";
 
             this.preparedStatement = connection.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class ConsultaDao {
                 c.setData_hora_inicial(rs.getDate("data_hora_inicial"));
                 c.setData_hora_final(rs.getDate("data_hora_final"));
                 c.setPaciente(new PacienteDao().getPacientesById(rs.getInt("paciente_id")));
-                c.setVeterinario(new VeterinarioDao().getVeterinarioById(rs.getInt("medico_id")));
+                c.setVeterinario(new VeterinarioDao().getVeterinarioById(rs.getInt("veterinario_id")));
                 c.setComentario(rs.getString("comentario"));
                 c.setDescricao(rs.getString("descricao"));
                 consultas.add(c);
@@ -85,7 +85,7 @@ public class ConsultaDao {
 
         try(Connection connection = new ConectaDB().getConexao()){
 
-            this.sql = "UPDATE consulta SET data_hora_inicial = ?, data_hora_final = ?, medico_id = ?, paciente_id = ?, descricao = ?, comentario = ? " +
+            this.sql = "UPDATE consulta SET data_hora_inicial = ?, data_hora_final = ?, veterinario_id = ?, paciente_id = ?, descricao = ?, comentario = ? " +
                     "WHERE id = ?";
             this.preparedStatement = connection.prepareStatement(sql);
             this.preparedStatement.setDate(1, c.getData_hora_inicial());
@@ -123,7 +123,7 @@ public class ConsultaDao {
                 c.setData_hora_inicial(rs.getDate("data_hora_inicial"));
                 c.setData_hora_final(rs.getDate("data_hora_final"));
                 c.setPaciente(new PacienteDao().getPacientesById(rs.getInt("paciente_id")));
-                c.setVeterinario(new VeterinarioDao().getVeterinarioById(rs.getInt("medico_id")));
+                c.setVeterinario(new VeterinarioDao().getVeterinarioById(rs.getInt("veterinario_id")));
                 c.setComentario(rs.getString("comentario"));
                 c.setDescricao(rs.getString("descricao"));
             }
