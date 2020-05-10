@@ -18,13 +18,33 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Tutores</title>
+    <title>Editar Cadastro</title>
 </head>
 <body>
+<div class="header">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">VetPlace</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/vetplace/">Tutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/vetplace/tutor-controller?opcao=novo">Cadastro de Tutor</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <div class="container">
-    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutor-controller?opcao=editSave$$id=${tutor.id}" method="post">
+    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutor-controller?opcao=editSave" method="post">
 
-        <p class="h4 mb-4 text-center">Editar Cadastro</p>
+        <p class="h4 mb-4 text-center">Editar Cadastro de ${tutor.nome}</p>
+
+        <input type="hidden" id="id" name="id" value="${tutor.id}">
 
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="nome" class="form-control mb-4" placeholder="Nome" value="${tutor.nome}">

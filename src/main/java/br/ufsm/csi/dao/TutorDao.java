@@ -23,6 +23,7 @@ public class TutorDao {
 
             while(this.rs.next()){
                 Tutor tutor = new Tutor(null);
+
                 tutor.setId(this.rs.getInt("id"));
                 tutor.setNome(this.rs.getString("nome"));
                 tutor.setCelular(this.rs.getString("celular"));

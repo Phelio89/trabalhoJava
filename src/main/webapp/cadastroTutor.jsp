@@ -29,10 +29,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/vetplace/">Tutores</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="http://localhost:8080/vetplace/tutor-controller?opcao=novo">Cadastro de Tutor</a>
                 </li>
             </ul>
@@ -40,28 +40,45 @@
     </nav>
 </div>
 <div class="container">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Fone</th>
-            <th>Editar</th>
-            <th>Excluir</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="t" items="${tutores}">
-            <tr>
-                <td>${t.nome}</td>
-                <td>${t.email}</td>
-                <td>${t.celular}</td>
-                <td><a href="http://localhost:8080/vetplace/tutor-controller?opcao=edit&&id=${t.id}">Editar</a></td>
-                <td><a href="http://localhost:8080/vetplace/tutor-controller?opcao=delete&&id=${t.id}">Excluir</a></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutor-controller?opcao=save" method="post">
+
+        <p class="h4 mb-4 text-center">Cadastrar Tutor</p>
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control mb-4" placeholder="Nome">
+
+        <label for="email">E-mail</label>
+        <input type="text" id="email" name="email" class="form-control mb-4" placeholder="fulano@gmail.com">
+
+        <label for="celular">Celular</label>
+        <input type="text" id="celular" name="celular" class="form-control mb-4" placeholder="(00)00000-0000">
+
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" class="form-control mb-4" placeholder="000.000.00-00">
+
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" name="cep" class="form-control mb-4" placeholder="00000-000">
+
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" name="bairro" class="form-control mb-4" placeholder="Bairro">
+
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" name="cidade" class="form-control mb-4" placeholder="Cidade">
+
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" name="estado" class="form-control mb-4" placeholder="Estado">
+
+        <label for="logradouro">Logradouro</label>
+        <input type="text" id="logradouro" name="logradouro" class="form-control mb-4" placeholder="Logradouro">
+
+        <label for="numero">Número</label>
+        <input type="text" id="numero" name="numero" class="form-control mb-4" placeholder="000">
+
+        <label for="consultorio">Código do Consultório</label>
+        <input type="text" id="consultorio" name="consultorio" class="form-control mb-4" placeholder="Cód.:">
+
+        <button class="btn btn-info btn-block my-4" type="submit">Salvar</button>
+    </form>
 </div>
 
 

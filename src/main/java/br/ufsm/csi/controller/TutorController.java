@@ -22,14 +22,22 @@ public class TutorController extends HttpServlet {
         TutorDao dao = new TutorDao();
 
         switch (opcao) {
+            case "novo": {
+                RequestDispatcher rd = req.getRequestDispatcher("/cadastroTutor.jsp");
+                rd.forward(req, resp);
+                break;
+            }
             case "delete": {
                 int id = Integer.parseInt(req.getParameter("id"));
                 dao.deletarTutor(id);
+
+                RequestDispatcher rd = req.getRequestDispatcher("/");
+                rd.forward(req, resp);
                 break;
             }
             case "edit": {
                 int id = Integer.parseInt(req.getParameter("id"));
-                req.setAttribute("tutor", new TutorDao().getTutorById(id));
+                req.setAttribute("tutor", dao.getTutorById(id));
 
                 RequestDispatcher rd = req.getRequestDispatcher("/tutorView.jsp");
                 rd.forward(req, resp);
@@ -64,6 +72,9 @@ public class TutorController extends HttpServlet {
 
                 System.out.println(dao.atualizarTutor(t));
 
+                RequestDispatcher rd = req.getRequestDispatcher("/");
+                rd.forward(req, resp);
+
                 break;
             }
             case "save": {
@@ -92,12 +103,11 @@ public class TutorController extends HttpServlet {
                 t.setConsultorio_id(consultorio_id);
 
                 System.out.println(dao.cadastraTutor(t));
+
+                RequestDispatcher rd = req.getRequestDispatcher("/");
+                rd.forward(req, resp);
                 break;
             }
         }
-
-        RequestDispatcher rd = req.getRequestDispatcher("/");
-        rd.forward(req, resp);
-
     }
 }
