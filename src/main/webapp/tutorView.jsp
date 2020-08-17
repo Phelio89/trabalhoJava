@@ -30,17 +30,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/vetplace/">Tutores</a>
+                    <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=tutores&clinica=${clinica}">Tutores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/vetplace/tutor-controller?opcao=novo">Cadastro de Tutor</a>
+                    <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=novo&clinica=${clinica}">Cadastro de Tutor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/vetplace/consultas?opcao=consultas&clinica=${clinica}">Consultas</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
 <div class="container">
-    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutor-controller?opcao=editSave" method="post">
+    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutores?opcao=editSave&clinica=${clinica}" method="post">
 
         <p class="h4 mb-4 text-center">Editar Cadastro de ${tutor.nome}</p>
 

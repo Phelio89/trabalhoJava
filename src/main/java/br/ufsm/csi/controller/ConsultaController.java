@@ -1,5 +1,6 @@
 package br.ufsm.csi.controller;
 
+import br.ufsm.csi.dao.ConsultaDao;
 import br.ufsm.csi.dao.TutorDao;
 import br.ufsm.csi.model.Tutor;
 import br.ufsm.csi.model.Veterinario;
@@ -12,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/tutores")
-public class TutorController extends HttpServlet {
+@WebServlet("/consultas")
+public class ConsultaController extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -122,14 +123,15 @@ public class TutorController extends HttpServlet {
                 rd.forward(req, resp);
                 break;
             }
-            case "tutores": {
+            case "consultas": {
                 req.setAttribute("clinica", clinica);
-                req.setAttribute("tutores", new TutorDao().getTutoresByClinic(clinica));
+                req.setAttribute("consultas", new ConsultaDao().getConsultas(clinica));
 
-                RequestDispatcher rd = req.getRequestDispatcher("/tutores.jsp");
+                RequestDispatcher rd = req.getRequestDispatcher("/consultas.jsp");
                 rd.forward(req, resp);
                 break;
             }
         }
     }
 }
+

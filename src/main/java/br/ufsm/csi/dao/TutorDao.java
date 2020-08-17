@@ -47,6 +47,44 @@ public class TutorDao {
         return tutores;
     }
 
+    public ArrayList<Tutor> getTutoresByClinic(int clinic){
+        ArrayList<Tutor> tutores = new ArrayList<Tutor>();
+
+        try(Connection connection = new ConectaDB().getConexao()){
+
+            this.sql = "SELECT * FROM tutor WHERE consultorio_id = ?";
+            this.preparedStatement = connection.prepareStatement(sql);
+
+            this.preparedStatement.setInt(1, clinic);
+
+            this.rs = this.preparedStatement.executeQuery();
+
+            while(this.rs.next()){
+                Tutor tutor = new Tutor(null);
+
+                tutor.setId(this.rs.getInt("id"));
+                tutor.setNome(this.rs.getString("nome"));
+                tutor.setCelular(this.rs.getString("celular"));
+                tutor.setEmail(this.rs.getString("email"));
+                tutor.setCpf(this.rs.getString("cpf"));
+                tutor.setBairro(this.rs.getString("bairro"));
+                tutor.setCep(this.rs.getString("cep"));
+                tutor.setCidade(this.rs.getString("cidade"));
+                tutor.setEstado(this.rs.getString("estado"));
+                tutor.setNumero(this.rs.getString("numero"));
+                tutor.setLogradouro(this.rs.getString("logradouro"));
+                tutor.setConsultorio_id(this.rs.getInt("consultorio_id"));
+
+                tutores.add(tutor);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return tutores;
+    }
+
     public Tutor getTutorByCpf(String cpf){
 
 

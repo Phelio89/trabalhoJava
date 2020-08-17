@@ -29,13 +29,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=tutores&clinica=${clinica}">Tutores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=novo&clinica=${clinica}">Cadastro de Tutor</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="http://localhost:8080/vetplace/consultas?opcao=consultas&clinica=${clinica}">Consultas</a>
                 </li>
             </ul>
@@ -46,21 +46,21 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Fone</th>
-            <th>Editar</th>
-            <th>Excluir</th>
+            <th>Paciente</th>
+            <th>Data/Hora</th>
+            <th>Espécie</th>
+            <th>Raça</th>
+            <th>sexo</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="t" items="${tutores}">
+        <c:forEach var="c" items="${consultas}">
             <tr>
-                <td>${t.nome}</td>
-                <td>${t.email}</td>
-                <td>${t.celular}</td>
-                <td><a href="http://localhost:8080/vetplace/tutores?opcao=edit&clinica=${clinica}&id=${t.id}">Editar</a></td>
-                <td><a href="http://localhost:8080/vetplace/tutores?opcao=delete&clinica=${clinica}&id=${t.id}">Excluir</a></td>
+                <td>${c.paciente.nome}</td>
+                <td>${c.data_hora_inicial}</td>
+                <td>${c.paciente.especie}</td>
+                <td>${c.paciente.raca}</td>
+                <td>${c.paciente.sexo}</td>
             </tr>
         </c:forEach>
         </tbody>

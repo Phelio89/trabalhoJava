@@ -36,15 +36,17 @@ public class ConsultaDao {
         }
     }
 
-    public ArrayList<Consulta> getConsultas(){
+    public ArrayList<Consulta> getConsultas(int clinica){
 
         ArrayList<Consulta> consultas = new ArrayList<Consulta>();
 
         try(Connection connection = new ConectaDB().getConexao()){
 
-            this.sql = "SELECT * FROM consulta";
-            this.stmt = connection.createStatement();
-            this.rs = this.stmt.executeQuery(sql);
+            this.sql = "SELECT * FROM consulta WHERE consultorio_id = ?";
+            this.preparedStatement = connection.prepareStatement(sql);
+            this.preparedStatement.setInt(1, clinica);
+
+            this.rs = this.preparedStatement.executeQuery();
 
             while (rs.next()){
                 Consulta c = new Consulta();

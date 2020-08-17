@@ -166,10 +166,36 @@ public class VeterinarioDao {
             e.printStackTrace();
             return null;
         }
-
-
     }
 
+    public Veterinario loginVet(String email, String password){
+        Veterinario v = new Veterinario();
 
+        try(Connection connection = new ConectaDB().getConexao()){
+
+            this.sql = "SELECT * FROM veterinario WHERE email = ? AND senha = ?";
+            this.preparedStatement = connection.prepareStatement(sql);
+            this.preparedStatement.setString(1, email);
+            this.preparedStatement.setString(2, password);
+
+            this.rs = this.preparedStatement.executeQuery();
+
+            while (this.rs.next()){
+                v.setNome(this.rs.getString("nome"));
+                v.setCelular(this.rs.getString("celular"));
+                v.setCrmv(this.rs.getString("crmv"));
+                v.setEmail(this.rs.getString("email"));
+                v.setConsultorio_id(this.rs.getInt("consultorio_id"));
+                v.setId(this.rs.getInt("id"));
+                v.setSenha(this.rs.getString("senha"));
+                v.setValor_consulta(this.rs.getDouble("valor_consulta"));
+            }
+
+            return v;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

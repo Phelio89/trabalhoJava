@@ -164,14 +164,7 @@ public class Teste {
         ));
     }
 
-    public static void testeGetConsultas(){
-        for (Consulta c : new ConsultaDao().getConsultas()) {
 
-            System.out.println(c.getPaciente().getNome());
-            System.out.println(c.getVeterinario().getNome());
-
-        }
-    }
 
     public static void testaDeletarConsulta(){
         Consulta c = new Consulta();

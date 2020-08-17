@@ -19,9 +19,7 @@ public class IndexController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("tutores", new TutorDao().getTutores());
-
-        RequestDispatcher rd = req.getRequestDispatcher("/tutores.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
         rd.forward(req, resp);
     }
 }

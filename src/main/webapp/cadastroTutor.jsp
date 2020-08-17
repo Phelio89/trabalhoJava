@@ -30,17 +30,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/vetplace/">Tutores</a>
+                    <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=tutores&clinica=${clinica}">Tutores</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:8080/vetplace/tutor-controller?opcao=novo">Cadastro de Tutor</a>
+                    <a class="nav-link" href="http://localhost:8080/vetplace/tutores?opcao=novo&clinica=${clinica}">Cadastro de Tutor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/vetplace/consultas?opcao=consultas&clinica=${clinica}">Consultas</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
 <div class="container">
-    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutor-controller?opcao=save" method="post">
+    <form class="border border-light p-5" action="http://localhost:8080/vetplace/tutores?opcao=save&clinica=${clinica}" method="post">
 
         <p class="h4 mb-4 text-center">Cadastrar Tutor</p>
 
@@ -74,8 +77,7 @@
         <label for="numero">Número</label>
         <input type="text" id="numero" name="numero" class="form-control mb-4" placeholder="000">
 
-        <label for="consultorio">Código do Consultório</label>
-        <input type="text" id="consultorio" name="consultorio" class="form-control mb-4" placeholder="Cód.:">
+        <input type="hidden" id="consultorio" name="consultorio" class="form-control mb-4" placeholder="Cód.:" value="${clinica}">
 
         <button class="btn btn-info btn-block my-4" type="submit">Salvar</button>
     </form>
