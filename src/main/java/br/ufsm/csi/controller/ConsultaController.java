@@ -2,10 +2,8 @@ package br.ufsm.csi.controller;
 
 import br.ufsm.csi.dao.ConsultaDao;
 import br.ufsm.csi.dao.PacienteDao;
-import br.ufsm.csi.dao.TutorDao;
 import br.ufsm.csi.model.Consulta;
-import br.ufsm.csi.model.Tutor;
-import br.ufsm.csi.model.Veterinario;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +22,6 @@ public class ConsultaController extends HttpServlet {
         String opcao = req.getParameter("opcao");
         int clinica =  Integer.parseInt(req.getParameter("clinica"));
 
-        TutorDao dao = new TutorDao();
-
         switch (opcao) {
             case "novo": {
                 req.setAttribute("clinica", clinica);
@@ -37,7 +33,14 @@ public class ConsultaController extends HttpServlet {
                 break;
             }
             case "delete": {
+                int id = Integer.parseInt(req.getParameter("id"));
+                new ConsultaDao().deletarConsulta(id);
 
+                req.setAttribute("clinica", clinica);
+                req.setAttribute("consultas", new ConsultaDao().getConsultas(clinica));
+
+                RequestDispatcher rd = req.getRequestDispatcher("/consultas.jsp");
+                rd.forward(req, resp);
                 break;
             }
             case "edit": {
@@ -51,10 +54,14 @@ public class ConsultaController extends HttpServlet {
                 break;
             }
             case "save": {
+                String data = req.getParameter("data");
                 String descricao = req.getParameter("descricao");
                 int id = Integer.parseInt(req.getParameter("id"));
 
+                //Date dt = Date.valueOf(data);
+
                 Consulta c = new Consulta();
+                //c.setData_hora_inicial(dt);
                 c.setDescricao(descricao);
                 c.setPaciente(new PacienteDao().getPacientesById(id));
                 c.setClinica(id);
@@ -62,9 +69,9 @@ public class ConsultaController extends HttpServlet {
                 System.out.println(new ConsultaDao().marcaConsulta(c));
 
                 req.setAttribute("clinica", clinica);
-                req.setAttribute("tutores", new TutorDao().getTutoresByClinic(clinica));
-
-                RequestDispatcher rd = req.getRequestDispatcher("/tutores.jsp");
+                req.setAttribute("consultas", new ConsultaDao().getConsultas(clinica));
+''
+                RequestDispatcher rd = req.getRequestDispatcher("/consultas.jsp");
                 rd.forward(req, resp);
                 break;
             }

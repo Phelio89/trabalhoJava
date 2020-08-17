@@ -1,7 +1,5 @@
 package br.ufsm.csi.controller;
 
-import br.ufsm.csi.dao.TutorDao;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;

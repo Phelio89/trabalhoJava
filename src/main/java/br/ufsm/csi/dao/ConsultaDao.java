@@ -1,9 +1,6 @@
 package br.ufsm.csi.dao;
 
 import br.ufsm.csi.model.Consulta;
-import br.ufsm.csi.model.Paciente;
-import br.ufsm.csi.model.Veterinario;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -50,6 +47,7 @@ public class ConsultaDao {
 
             while (rs.next()){
                 Consulta c = new Consulta();
+                c.setId(rs.getInt("id"));
                 c.setData_hora_inicial(rs.getDate("data_hora_inicial"));
                 c.setData_hora_final(rs.getDate("data_hora_final"));
                 c.setPaciente(new PacienteDao().getPacientesById(rs.getInt("paciente_id")));
@@ -66,12 +64,12 @@ public class ConsultaDao {
         }
     }
 
-    public String deletarConsulta(Consulta c){
+    public String deletarConsulta(int id){
 
         try(Connection connection = new ConectaDB().getConexao()){
             this.sql = "DELETE FROM consulta WHERE id = ?";
             this.preparedStatement = connection.prepareStatement(sql);
-            this.preparedStatement.setInt(1, c.getId());
+            this.preparedStatement.setInt(1, id);
 
             this.preparedStatement.execute();
 

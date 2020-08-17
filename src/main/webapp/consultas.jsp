@@ -50,7 +50,8 @@
             <th>Data/Hora</th>
             <th>Espécie</th>
             <th>Raça</th>
-            <th>sexo</th>
+            <th>Sexo</th>
+            <th>Cancelar</th>
         </tr>
         </thead>
         <tbody>
@@ -61,6 +62,7 @@
                 <td>${c.paciente.especie}</td>
                 <td>${c.paciente.raca}</td>
                 <td>${c.paciente.sexo}</td>
+                <td><a href="http://localhost:8080/vetplace/consultas?opcao=delete&clinica=${clinica}&id=${c.id}">Cancelar</a></td>
             </tr>
         </c:forEach>
         </tbody>

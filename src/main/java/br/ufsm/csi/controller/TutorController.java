@@ -3,7 +3,6 @@ package br.ufsm.csi.controller;
 import br.ufsm.csi.dao.PacienteDao;
 import br.ufsm.csi.dao.TutorDao;
 import br.ufsm.csi.model.Tutor;
-import br.ufsm.csi.model.Veterinario;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

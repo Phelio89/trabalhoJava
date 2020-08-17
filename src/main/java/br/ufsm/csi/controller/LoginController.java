@@ -1,7 +1,6 @@
 package br.ufsm.csi.controller;
 
 import br.ufsm.csi.dao.ConsultaDao;
-import br.ufsm.csi.dao.TutorDao;
 import br.ufsm.csi.dao.VeterinarioDao;
 import br.ufsm.csi.model.Veterinario;
 
