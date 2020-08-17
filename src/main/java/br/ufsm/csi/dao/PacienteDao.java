@@ -13,7 +13,7 @@ public class PacienteDao {
     private ResultSet rs;
     private PreparedStatement preparedStatement;
 
-    public String cadastrar(Paciente paciente, Tutor tutor){
+    public String cadastrar(Paciente paciente){
 
         try(Connection connection = new ConectaDB().getConexao()){
 
@@ -25,7 +25,7 @@ public class PacienteDao {
              this.preparedStatement.setString(2, paciente.getNome());
              this.preparedStatement.setString(3, paciente.getRaca());
              this.preparedStatement.setString(4, paciente.getSexo());
-             this.preparedStatement.setInt(5, tutor.getId());
+             this.preparedStatement.setInt(5, paciente.getTutor().getId());
 
              this.preparedStatement.execute();
 
@@ -36,14 +36,14 @@ public class PacienteDao {
         return "Paciente cadastrado com sucesso";
     }
 
-    public String deletar(Paciente p){
+    public String deletar(int id){
 
         try(Connection connection = new ConectaDB().getConexao()){
 
             this.sql = "DELETE FROM paciente WHERE id = ?";
 
             this.preparedStatement = connection.prepareStatement(this.sql);
-            this.preparedStatement.setInt(1, p.getId());
+            this.preparedStatement.setInt(1, id);
 
             this.preparedStatement.execute();
 
@@ -117,6 +117,35 @@ public class PacienteDao {
             this.sql = "SELECT * FROM paciente";
             this.stmt = connection.createStatement();
             this.rs = stmt.executeQuery(sql);
+
+            while(this.rs.next()){
+                Paciente paciente = new Paciente(null);
+                paciente.setId(this.rs.getInt("id"));
+                paciente.setNome(this.rs.getString("nome"));
+                paciente.setEspecie(this.rs.getString("especie"));
+                paciente.setRaca(this.rs.getString("raca"));
+                paciente.setSexo(this.rs.getString("sexo"));
+
+                pacientes.add(paciente);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return pacientes;
+    }
+
+    public ArrayList<Paciente> getPacientesByTutor(int tutor){
+        ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+
+        try(Connection connection = new ConectaDB().getConexao()){
+
+            this.sql = "SELECT * FROM paciente WHERE tutor_id = ?";
+            this.preparedStatement = connection.prepareStatement(this.sql);
+            this.preparedStatement.setInt(1, tutor);
+
+            this.rs = this.preparedStatement.executeQuery();
 
             while(this.rs.next()){
                 Paciente paciente = new Paciente(null);

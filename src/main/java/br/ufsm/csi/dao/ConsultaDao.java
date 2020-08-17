@@ -14,17 +14,17 @@ public class ConsultaDao {
     private ResultSet rs;
     private PreparedStatement preparedStatement;
 
-    public String marcaConsulta(Paciente p, Veterinario v, Date d){
+    public String marcaConsulta(Consulta c){
 
         try(Connection connection = new ConectaDB().getConexao()){
 
-            this.sql =  "INSERT INTO consulta (data_hora_inicial, veterinario_id, paciente_id) " +
+            this.sql =  "INSERT INTO consulta (data_hora_inicial, consultorio_id, paciente_id) " +
                     "VALUES (?, ?, ?)";
 
             this.preparedStatement = connection.prepareStatement(sql);
-            this.preparedStatement.setDate(1, d);
-            this.preparedStatement.setInt(2, v.getId());
-            this.preparedStatement.setInt(3, p.getId());
+            this.preparedStatement.setDate(1, c.getData_hora_inicial());
+            this.preparedStatement.setInt(2, c.getClinica());
+            this.preparedStatement.setInt(3, c.getPaciente().getId());
 
             this.preparedStatement.execute();
 

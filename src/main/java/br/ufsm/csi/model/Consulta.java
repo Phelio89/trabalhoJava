@@ -11,8 +11,17 @@ public class Consulta {
     private Paciente paciente;
     private String descricao;
     private String comentario;
+    private int clinica;
 
     public Consulta() {
+    }
+
+    public int getClinica() {
+        return clinica;
+    }
+
+    public void setClinica(int clinica) {
+        this.clinica = clinica;
     }
 
     public int getId() {

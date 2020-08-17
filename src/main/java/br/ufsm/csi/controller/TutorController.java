@@ -1,5 +1,6 @@
 package br.ufsm.csi.controller;
 
+import br.ufsm.csi.dao.PacienteDao;
 import br.ufsm.csi.dao.TutorDao;
 import br.ufsm.csi.model.Tutor;
 import br.ufsm.csi.model.Veterinario;
@@ -46,6 +47,7 @@ public class TutorController extends HttpServlet {
                 int id = Integer.parseInt(req.getParameter("id"));
                 req.setAttribute("tutor", dao.getTutorById(id));
                 req.setAttribute("clinica", clinica);
+                req.setAttribute("pets", new PacienteDao().getPacientesByTutor(id));
 
                 RequestDispatcher rd = req.getRequestDispatcher("/tutorView.jsp");
                 rd.forward(req, resp);

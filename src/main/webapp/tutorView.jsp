@@ -81,6 +81,36 @@
 
         <button class="btn btn-info btn-block my-4" type="submit">Salvar Edição</button>
     </form>
+
+    <p class="h4 mb-4 text-center">Pets</p>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Paciente</th>
+            <th>Espécie</th>
+            <th>Raça</th>
+            <th>sexo</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+            <th>Marcar Consulta</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="p" items="${pets}">
+            <tr>
+                <td>${p.nome}</td>
+                <td>${p.especie}</td>
+                <td>${p.raca}</td>
+                <td>${p.sexo}</td>
+                <td><a href="http://localhost:8080/vetplace/pacientes?opcao=edit&clinica=${clinica}&id=${p.id}">Editar</a></td>
+                <td><a href="http://localhost:8080/vetplace/pacientes?opcao=delete&clinica=${clinica}&id=${p.id}">Excluir</a></td>
+                <td><a href="http://localhost:8080/vetplace/consultas?opcao=novo&clinica=${clinica}&id=${p.id}">Consulta</a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <a href="http://localhost:8080/vetplace/pacientes?opcao=novo&clinica=${clinica}&id=${tutor.id}"><button class="btn btn-info btn-block my-4">Cadastrar Novo Pet</button></a>
 </div>
 
 
